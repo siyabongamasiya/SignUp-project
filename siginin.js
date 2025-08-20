@@ -1,12 +1,12 @@
 // Initialize auth system
-const userAuth = new UserAuth();
+// const userAuth = new UserAuth();
 
 // Check if already logged in
-document.addEventListener("DOMContentLoaded", function () {
-  if (userAuth.isLoggedIn()) {
-    window.location.href = "profile.html";
-  }
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   if (userAuth.isLoggedIn()) {
+//     window.location.href = "profile.html";
+//   }
+// });
 
 // Handle login form submission
 document.getElementById("loginForm").addEventListener("submit", function (e) {
@@ -14,14 +14,15 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   const username = document.getElementById("loginUsername").value;
   const password = document.getElementById("loginPassword").value;
 
-  const result = userAuth.login(username, password);
+  // const result = userAuth.login(username, password);
+  window.location.href = "Profile.html";
 
-  if (result.success) {
-    showMessage("loginMessage", result.message, "success");
-    setTimeout(() => {
-      window.location.href = "profile.html";
-    }, 1000);
-  } else {
-    showMessage("loginMessage", result.message, "error");
-  }
+  // if (result.success) {
+  //   showMessage("loginMessage", result.message, "success");
+  //   setTimeout(() => {
+      
+  //   }, 1000);
+  // } else {
+  //   showMessage("loginMessage", result.message, "error");
+  // }
 });
