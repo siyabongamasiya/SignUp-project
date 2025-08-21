@@ -1,28 +1,38 @@
+import UserAuth from "./UserAuth.js";
+
 // Initialize auth system
-// const userAuth = new UserAuth();
+const userAuth = new UserAuth();
+
+const createUsersIfNotExist = () => {
+  localStorage.setItem("users", {});
+};
 
 // Check if already logged in
-// document.addEventListener("DOMContentLoaded", function () {
-//   if (userAuth.isLoggedIn()) {
-//     window.location.href = "profile.html";
-//   }
-// });
+const checkLoggin = () => {
+  const users = userAuth.getUsers();
+  for (let user in users) {
+    if (user.loggedin) {
+      window.location.href = "./Profile.html";
+    }
+  }
+};
+
+createUsersIfNotExist();
+checkLoggin();
 
 // Handle signup form submission
-document.getElementById("signupForm").addEventListener("submit", function (e) {
+signupForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const username = document.getElementById("signupUsername").value;
   const email = document.getElementById("signupEmail").value;
   const password = document.getElementById("signupPassword").value;
 
-  // const result = userAuth.signup(username, email, password);
-  window.location.href = "./Profile.html";
-  
+  const createdAt = new Date().toISOString();
+  const success = userAuth.signup(username, email, password, createdAt);
 
-  // if (result.success) {
-  //   showMessage("signupMessage", result.message, "success");
-    
-  // } else {
-  //   showMessage("signupMessage", result.message, "error");
-  // }
+  if (success) {
+    window.location.href = "./Profile.html";
+  } else {
+    alert("Error creating profile...please try again...");
+  }
 });

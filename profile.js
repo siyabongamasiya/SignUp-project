@@ -1,14 +1,14 @@
 // Initialize auth system
-// const userAuth = new UserAuth();
+const userAuth = new UserAuth();
 
 // Check authentication and redirect if not logged in
-// document.addEventListener("DOMContentLoaded", function () {
-//   if (!userAuth.isLoggedIn()) {
-//     window.location.href = "index.html";
-//     return;
-//   }
-//   displayProfile();
-// });
+document.addEventListener("DOMContentLoaded", function () {
+  if (!userAuth.isLoggedIn()) {
+    window.location.href = "index.html";
+    return;
+  }
+  displayProfile();
+});
 
 // Display user profile information
 function displayProfile() {
