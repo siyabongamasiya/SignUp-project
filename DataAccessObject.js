@@ -13,7 +13,6 @@ export default class DataAccessObject {
     try {
       const users = this.getUsers();
       users[user["username"]] = user;
-
       localStorage.setItem(`${this.USERS}`, JSON.stringify(users));
       return true;
     } catch (e) {
@@ -24,7 +23,7 @@ export default class DataAccessObject {
   // Get user by username
   getUserByUsername(username) {
     const users = this.getUsers();
-    users[username] ? users[username] : null;
+    return users[username] ? users[username] : null;
   }
 
   // Update user's loggedIn status
@@ -32,7 +31,9 @@ export default class DataAccessObject {
     try {
       const users = this.getUsers();
       users[username].loggedIn = loggedIn;
-
+      users[username].loggedIn
+        ? (currentUser = users[username])
+        : (currentUser = null);
       localStorage.setItem(`${this.USERS}`, JSON.stringify(users));
       return true;
     } catch (e) {

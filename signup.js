@@ -4,15 +4,17 @@ import UserAuth from "./UserAuth.js";
 const userAuth = new UserAuth();
 
 const createUsersIfNotExist = () => {
-  localStorage.setItem("users", {});
+  if (!userAuth.getUsers()) {
+    localStorage.setItem("users", JSON.stringify({}));
+  }
 };
 
 // Check if already logged in
 const checkLoggin = () => {
   const users = userAuth.getUsers();
   for (let user in users) {
-    if (user.loggedin) {
-      window.location.href = "./Profile.html";
+    if (users[user].loggedin) {
+      window.location.href = `./Profile.html?username=${user}`;
     }
   }
 };
@@ -31,7 +33,7 @@ signupForm.addEventListener("submit", (e) => {
   const success = userAuth.signup(username, email, password, createdAt);
 
   if (success) {
-    window.location.href = "./Profile.html";
+    window.location.href = `./Profile.html?username=${user}` ;
   } else {
     alert("Error creating profile...please try again...");
   }

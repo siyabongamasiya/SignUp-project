@@ -1,23 +1,21 @@
+import UserAuth from "./UserAuth.js";
 // Initialize auth system
 const userAuth = new UserAuth();
 
 // Check authentication and redirect if not logged in
 document.addEventListener("DOMContentLoaded", function () {
-  if (!userAuth.isLoggedIn()) {
-    window.location.href = "index.html";
-    return;
-  }
   displayProfile();
 });
 
 // Display user profile information
 function displayProfile() {
-  const profile = userAuth.getProfile();
+  const profile = userAuth.getProfile(userAuth.getCurrentUser());
+  console.log(profile);
   if (profile) {
     const profileInfo = document.getElementById("profileInfo");
     const createdDate = new Date(profile.createdAt).toLocaleDateString();
-    const statusClass = profile.loggedIn ? "status-online" : "status-offline";
-    const statusText = profile.loggedIn ? "Online" : "Offline";
+    const statusClass = profile.loggedin ? "status-online" : "status-offline";
+    const statusText = profile.loggedin ? "Online" : "Offline";
 
     profileInfo.innerHTML = `
                     <p><strong>Username:</strong> ${profile.username}</p>
@@ -29,9 +27,6 @@ function displayProfile() {
 }
 
 signout.onclick = () => {
+  userAuth.logout(userAuth.getCurrentUser());
   window.location.href = "SignIn.html";
-  // const result = userAuth.logout();
-  // if (result.success) {
-
-  // }
 };
